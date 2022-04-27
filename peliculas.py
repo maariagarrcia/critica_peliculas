@@ -1,20 +1,20 @@
-
 import csv
-results = 
-with open(file="critica_pelicula.csv", mode="r") as f:
-    reader = csv.reader(f)
-    # Imprimir 1era fila.
-    for row in reader:
-        print(row)
-
 from collections import Counter
 from math import *
 import matplotlib.pyplot as plt
 import numpy as pd
 
+with open(file="critica_pelicula.csv", mode="r") as f:
+    reader = csv.reader(f)
+    #  1era fila.
+    for row in reader:
+        valoraciones = row[0]
+        cantidad_votantes = row[1]
+        print (valoraciones)
+
 class JMPEstadisticas:
 
-    def __init__(self,critica_pelicula):
+    def __init__(self, critica_pelicula):
         self.caracteristica = critica_pelicula
         self.caracteristica = pd.read_csv("critica_pelicula.csv", sep=";")
 
@@ -45,7 +45,7 @@ class JMPEstadisticas:
             rangoPython = rango-1
             valor1 = caracteristica[rangoPython]
             valor2 = caracteristica[rangoPython+1]
-            mediana = valor1 +((valor2-valor1)/2)
+            mediana = valor1 + ((valor2-valor1)/2)
         else:
             rango = ((n + 1) / 2)
             rangoPython = rango - 1
@@ -75,7 +75,7 @@ class JMPEstadisticas:
 
         return ([varianza, desviacionTipica])
 
-    def calculoDelosCuartiles(self,mediana,rangoMediana):
+    def calculoDelosCuartiles(self, mediana, rangoMediana):
         n = self.caracteristica.count()
         sort_caracteristica = self.caracteristica.sort_values()
         sort_caracteristica = sort_caracteristica.reset_index(drop=True)
@@ -83,8 +83,8 @@ class JMPEstadisticas:
         q2 = mediana
         q3 = 0
 
-        #Cálculo Q1
-        restoDivision = rangoMediana%2
+        # Cálculo Q1
+        restoDivision = rangoMediana % 2
         if (restoDivision != 0):
             q1 = sort_caracteristica[((rangoMediana/2)+1)-1]
         else:
@@ -97,15 +97,16 @@ class JMPEstadisticas:
         nbDatosDesdeMediana = nbdatos - rangoMediana
         restoDivision = nbDatosDesdeMediana % 2
         if (restoDivision != 0):
-            q3 = sort_caracteristica[(rangoMediana+ceil(nbDatosDesdeMediana/2))-1]
+            q3 = sort_caracteristica[(
+                rangoMediana+ceil(nbDatosDesdeMediana/2))-1]
         else:
-            valorMinQ3 = sort_caracteristica[(rangoMediana+(nbDatosDesdeMediana/2))-1]
-            valorMaxQ3 = sort_caracteristica[(rangoMediana+(nbDatosDesdeMediana/2))]
+            valorMinQ3 = sort_caracteristica[(
+                rangoMediana+(nbDatosDesdeMediana/2))-1]
+            valorMaxQ3 = sort_caracteristica[(
+                rangoMediana+(nbDatosDesdeMediana/2))]
             q3 = (valorMin + ((valorMax - valorMin) / 2) + valorMax) / 2
 
-
         return ([q1, q2, q3])
-
 
     def criterioDeTukey(self, primerCuartil, tercerCuartil):
 
@@ -128,34 +129,37 @@ class JMPEstadisticas:
 
         return (valoresAberrantes)
 
-
-    def visualizacion(self,media,mediana,cuartil_1,cuartil_2,cuartil_3):
+    def visualizacion(self, media, mediana, cuartil_1, cuartil_2, cuartil_3):
 
         plt.subplot(2, 2, 1)
         plt.hist(self.caracteristica)
         plt.title("Histograma y media")
-        plt.axvline(media, color='red', linestyle='dashed', linewidth=1,label = str(media))
+        plt.axvline(media, color='red', linestyle='dashed',
+                    linewidth=1, label=str(media))
         plt.legend(loc='upper right')
 
         plt.subplot(2, 2, 2)
         plt.hist(self.caracteristica)
         plt.title("Histograma y mediana")
-        plt.axvline(mediana, color='green', linestyle='dashed', linewidth=1,label = str(mediana))
+        plt.axvline(mediana, color='green', linestyle='dashed',
+                    linewidth=1, label=str(mediana))
         plt.legend(loc='upper right')
 
         plt.subplot(2, 2, 3)
         plt.hist(self.caracteristica)
         plt.title("Histograma y cuartiles")
-        plt.axvline(cuartil_1, color='orange', linestyle='dashed', linewidth=1,label = "Q1: "+str(cuartil_1))
-        plt.axvline(cuartil_2, color='orange', linestyle='dashed', linewidth=1,label = "Q2: "+str(cuartil_2))
-        plt.axvline(cuartil_3, color='orange', linestyle='dashed', linewidth=1,label = "Q3: "+str(cuartil_3))
+        plt.axvline(cuartil_1, color='orange', linestyle='dashed',
+                    linewidth=1, label="Q1: "+str(cuartil_1))
+        plt.axvline(cuartil_2, color='orange', linestyle='dashed',
+                    linewidth=1, label="Q2: "+str(cuartil_2))
+        plt.axvline(cuartil_3, color='orange', linestyle='dashed',
+                    linewidth=1, label="Q3: "+str(cuartil_3))
         plt.legend(loc='upper right')
 
         plt.subplot(2, 2, 4)
         plt.boxplot(self.caracteristica)
         plt.title("Diagrama de caja y bigotes")
         plt.show()
-
 
     def analisisCaracteristica(self):
 
@@ -168,15 +172,16 @@ class JMPEstadisticas:
         n = self.caracteristica.count()
         print("Cantidad de observaciones = " + str(n))
 
-        print ("\n-- MIN --")
+        print("\n-- MIN --")
         valoresOrdenados = self.caracteristica.sort_values()
         valoresOrdenados = valoresOrdenados.reset_index(drop=True)
         print("Valor mínimo: "+str(valoresOrdenados[0]))
 
-        print ("\n-- MAX --")
+        print("\n-- MAX --")
         valoresOrdenados = self.caracteristica.sort_values()
         valoresOrdenados = valoresOrdenados.reset_index(drop=True)
-        print("Valor máximo: " + str(valoresOrdenados[len(valoresOrdenados)-1]))
+        print("Valor máximo: " +
+              str(valoresOrdenados[len(valoresOrdenados)-1]))
 
         # -Media artimética:
         print("\n-- MEDIA --")
@@ -188,8 +193,10 @@ class JMPEstadisticas:
         print("\n-- MEDIANA --")
         mediana = self.calculoMediana()
         print("Mediana calculada = " + str(mediana[0]))
-        print("> Observaciones: El valor que se encuentra en el punto medio de las observaciones es:" + str(mediana[0]))
-        print("El reparto es: " + str(mediana[1]) + " valores en cada lado de la mediana")
+        print(
+            "> Observaciones: El valor que se encuentra en el punto medio de las observaciones es:" + str(mediana[0]))
+        print("El reparto es: " +
+              str(mediana[1]) + " valores en cada lado de la mediana")
 
         # -Moda
         print("\n-- MODA --")
@@ -197,19 +204,20 @@ class JMPEstadisticas:
         print(moda)
         print("> Observacions: La moda permite determinar los valores observados con más frecuencia")
 
-
         print("\n\n-----------------------------------------")
         print("      MEDIDA DE DISPERSION        ")
         print("-----------------------------------------\n")
         print("-- RANGO --")
-        print ("Rango de la serie = "+str(valoresOrdenados[len(valoresOrdenados)-1]-valoresOrdenados[0]))
+        print("Rango de la serie = " +
+              str(valoresOrdenados[len(valoresOrdenados)-1]-valoresOrdenados[0]))
         varianzaDesviacionTipica = self.calculoVarianzaDesviacionTipica()
 
         print("\n-- VARIANZA --")
         print("Varianza calculada = " + str(varianzaDesviacionTipica[0]))
 
         print("\n-- DESVIACION TIPICA --")
-        print("Desviación típica calculada = " + str(varianzaDesviacionTipica[1]))
+        print("Desviación típica calculada = " +
+              str(varianzaDesviacionTipica[1]))
         desviacionTipica = varianzaDesviacionTipica[1]
         print("68 % de los valores de las observaciones se sitúan entre " + str(media - desviacionTipica) + " y " + str(
             media + desviacionTipica))
@@ -221,11 +229,13 @@ class JMPEstadisticas:
         print("\n\n-----------------------------------------")
         print("      CUARTILES        ")
         print("-----------------------------------------\n")
-        cuartiles = self.calculoDelosCuartiles(mediana[0],mediana[1])
-        print("25 % de las observaciones tienen un valor inferior a " + str(cuartiles[0]))
-        print("50 % de las observaciones tienen un valor inferior a " + str(cuartiles[1]))
-        print("75 % de las observaciones tienen un valor inferior a " + str(cuartiles[2]))
-
+        cuartiles = self.calculoDelosCuartiles(mediana[0], mediana[1])
+        print("25 % de las observaciones tienen un valor inferior a " +
+              str(cuartiles[0]))
+        print("50 % de las observaciones tienen un valor inferior a " +
+              str(cuartiles[1]))
+        print("75 % de las observaciones tienen un valor inferior a " +
+              str(cuartiles[2]))
 
         print("\n\n-----------------------------------------")
         print("      DETECCION VALORES ABERRANTES        ")
@@ -235,9 +245,9 @@ class JMPEstadisticas:
         print("Cantidad de valores aberrantes: " + str(len(valoresAberrantes)))
         print("Valores:" + str(valoresAberrantes))
 
-
         print("\n\n-----------------------------------------")
         print("      VISUALIZACION        ")
         print("-----------------------------------------\n")
         print("Generación de las gráficas...")
-        self.visualizacion(media,mediana[0],cuartiles[0],cuartiles[1],cuartiles[2])
+        self.visualizacion(
+            media, mediana[0], cuartiles[0], cuartiles[1], cuartiles[2])
