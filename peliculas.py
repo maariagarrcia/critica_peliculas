@@ -10,7 +10,8 @@ with open(file="critica_pelicula.csv", mode="r") as f:
     for row in reader:
         valoraciones = row[0]
         cantidad_votantes = row[1]
-        print (valoraciones)
+        print (f"Juego:'{valoraciones}'con caliifiaci9on '{cantidad_votantes}")
+
 
 class JMPEstadisticas:
 

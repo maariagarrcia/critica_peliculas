@@ -1,4 +1,3 @@
-from fileinput import filename
 import math
 import csv
 import numpy as np
