@@ -4,8 +4,8 @@ import peliculas as jmp
 import numpy as np
 
 #--- CREACION DE UN DATAFRAME ----
-observaciones = pnd.DataFrame({'NOTAS':np.array([3,19,10,15,14,12,9,8,11,12,11,12,13,11,14,16])})
+observaciones = pnd.DataFrame({'Cantidad de votantes':np.array([42,96,132,124,88,58])})
 
 #--- ANALISIS DE UNA CARACTERISTICA ---
-stats = jmp.JMPEstadisticas(observaciones['NOTAS'])
+stats = jmp.JMPEstadisticas(observaciones['votaciones'])
 stats.analisisCaracteristica()
