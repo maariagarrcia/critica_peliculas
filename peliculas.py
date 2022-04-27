@@ -4,13 +4,12 @@ from math import *
 import matplotlib.pyplot as plt
 import numpy as pd
 
-with open(file="critica_pelicula.csv", mode="r") as f:
+archivo="critica_pelicula.csv"
+with open(file=archivo, mode="r") as f:
     reader = csv.reader(f)
     #  1era fila.
     for row in reader:
-        valoraciones = row[0]
-        cantidad_votantes = row[1]
-        print (f"Juego:'{valoraciones}'con caliifiaci9on '{cantidad_votantes}")
+        print ("Valoraciones:".format(row[0]))
 
 
 class JMPEstadisticas:
