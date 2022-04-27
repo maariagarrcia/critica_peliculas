@@ -1,14 +1,22 @@
+
+import csv
+results = 
+with open(file="critica_pelicula.csv", mode="r") as f:
+    reader = csv.reader(f)
+    # Imprimir 1era fila.
+    for row in reader:
+        print(row)
+
 from collections import Counter
 from math import *
 import matplotlib.pyplot as plt
-
-
+import numpy as pd
 
 class JMPEstadisticas:
 
-    def __init__(self,caracteristica):
-        self.caracteristica = caracteristica
-
+    def __init__(self,critica_pelicula):
+        self.caracteristica = critica_pelicula
+        self.caracteristica = pd.read_csv("critica_pelicula.csv", sep=";")
 
     def calculoMediaAritmetica(self):
 
@@ -26,13 +34,13 @@ class JMPEstadisticas:
         caracteristica = self.caracteristica.sort_values()
         caracteristica = caracteristica.reset_index(drop=True)
         n = self.caracteristica.count()
-        par = False;
+        par = False
         if (n % 2 == 0):
             print("La cantidad de observaciones es par.")
             par = True
 
         if par:
-            rango = (n / 2);
+            rango = (n / 2)
             print("RANGO = "+str(rango))
             rangoPython = rango-1
             valor1 = caracteristica[rangoPython]
@@ -119,7 +127,6 @@ class JMPEstadisticas:
         valoresAberrantes = valoresAberrantesInferiores + valoresAberrantesSuperiores
 
         return (valoresAberrantes)
-
 
 
     def visualizacion(self,media,mediana,cuartil_1,cuartil_2,cuartil_3):
