@@ -1,22 +1,29 @@
-import csv
-from collections import Counter
-from math import *
-import matplotlib.pyplot as plt
-import numpy as pd
 
-archivo="critica_pelicula.csv"
+import csv
+
+
+archivo = "critica_pelicula.csv"
+
+l1=[]
+l2=[]
 with open(file=archivo, mode="r") as f:
     reader = csv.reader(f)
     #  1era fila.
     for row in reader:
-        print ("Valoraciones:".format(row[0]))
-
+        l1.append(row[0])
+        l2.append(row[1])
+print(l1)
+print(l2)
+   
+import numpy as pd
+import matplotlib.pyplot as plt
+from math import *
+from collections import Counter
 
 class JMPEstadisticas:
 
-    def __init__(self, critica_pelicula):
-        self.caracteristica = critica_pelicula
-        self.caracteristica = pd.read_csv("critica_pelicula.csv", sep=";")
+    def __init__(self, caracteristica):
+        self.caracteristica = caracteristica
 
     def calculoMediaAritmetica(self):
 
